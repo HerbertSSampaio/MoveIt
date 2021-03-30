@@ -1,6 +1,5 @@
 <h1 align="center">
-	<img alt="Logo" src="https://github.com/HerbertSousa/MoveIt/blob/master/moveitblue.png" width="200px" />
-  Application Logo
+	<img alt="Logo" src="https://github.com/HerbertSousa/MoveIt/blob/main/moveitblue.png" width="200px" />
 </h1>
 
 <h3 align="center">
