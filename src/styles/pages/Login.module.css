@@ -1,0 +1,62 @@
+.container {
+    height: 100vh;
+    background-color: var(--blue);
+    background-image: url('../../../public/loginbackground.svg');
+    background-repeat: no-repeat;
+    background-position: left center;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.container section{
+    margin: 0 350px;
+}
+
+.container section img {
+    margin-bottom: 100px;
+}
+
+.container section h1 {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.container section div {
+    display: flex;
+    color: white;
+    margin: 30px 0;
+}
+
+.container section div img {
+    margin: 0;
+}
+
+.container section div p {
+    margin-left: 20px;
+    color: white;
+    opacity: 0.7;
+}
+
+.container section div input{
+    background-image: linear-gradient(to right, #4953B8, var(--blue));
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    color: white;
+}
+
+.container section div input::placeholder {
+    color: white;
+    opacity: 0.7;
+  }
+
+.container section div button{
+    padding: 15px;
+    background-color: #4953B8;
+    color: white;
+    border: none;
+}
