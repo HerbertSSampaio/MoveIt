@@ -1,5 +1,7 @@
 import styles from '../styles/pages/Login.module.css';
 import { FiArrowRight } from "react-icons/fi";
+import { signIn, signOut, useSession } from 'next-auth/client';
+
 
 export default function Login() {
     return (
@@ -8,12 +10,12 @@ export default function Login() {
                 <img src="logo.svg" alt="Logo"/>
                 <h1>Bem-vindo</h1>
                 <div>
-                    <img src="github.svg" alt="Logo"/>
                     <p>Faça login com seu Github <br/> para começar</p>
                 </div>
                 <div>
-                    <input type="text" placeholder="Digite seu username" size={30}/>
-                    <button>
+                    <button onClick={(): Promise<void> => signIn('github')}>
+                        <img src="github.svg" alt="Logo"/>
+                        Sign In
                         <FiArrowRight size={30}/>
                     </button>
                 </div>

@@ -34,29 +34,18 @@
 }
 
 .container section div p {
-    margin-left: 20px;
     color: white;
     opacity: 0.7;
 }
-
-.container section div input{
-    background-image: linear-gradient(to right, #4953B8, var(--blue));
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 0 0;
-    border: 0 none;
-    outline: 0;
-    color: white;
-}
-
-.container section div input::placeholder {
-    color: white;
-    opacity: 0.7;
-  }
 
 .container section div button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     padding: 15px;
     background-color: #4953B8;
     color: white;
+    font-weight: bolder;
     border: none;
+    width: 100%;
 }
