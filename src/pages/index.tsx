@@ -1,62 +1,30 @@
-import { CompletedChallenges } from '../components/CompletedChallenges';
-import {ChallengesProvider} from '../contexts/ChallengesContext';
-import { Countdown } from '../components/Countdown';
-import {ExperienceBar} from '../components/ExperienceBar';
-import { Profile } from '../components/Profile';
-import { ChallengeBox } from '../components/ChallengeBox';
-import { Menu } from '../components/Menu';
-import { CountdownProvider } from '../contexts/CountdownContext';
-import Head from 'next/head';
-import { GetServerSideProps} from 'next';
+import styles from '../styles/pages/Login.module.css';
+import { FiArrowRight } from "react-icons/fi";
+import { signIn, useSession } from 'next-auth/client';
+import Router from 'next/router'
 
-import styles from '../styles/pages/Home.module.css';
+export default function Login() {
+    const [ session, loading ] = useSession()
 
-interface HomeProps {
-  level: number,
-  currentExperience: number,
-  challengesCompleted: number,
-}
-
-export default function Home(props:HomeProps) {
-  console.log(props);
-  return (
-    <ChallengesProvider
-    level={props.level}
-    currentExperience = {props.currentExperience}
-    challengesCompleted = {props.challengesCompleted}
-    >
-      <Menu />
-    <div className={styles.container}>
-      <Head>
-        <title>Início | move-it</title>
-      </Head>
-      <ExperienceBar/>
-      <CountdownProvider>
-      <section id="home">
-        <div>
-          <Profile />
-          <CompletedChallenges />
-          <Countdown />
-        </div>
-        <div>
-          <ChallengeBox />
-        </div>
-      </section>
-      </CountdownProvider>
-    </div>
-    </ChallengesProvider>
-  )
-}
-
-export const getServerSideProps:GetServerSideProps = async (ctx) => {
-
-  const { level, currentExperience, challengesCompleted} = ctx.req.cookies;
-  
-  return {
-    props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted),
+    if(session) {
+        Router.push("/dashboard");
     }
-  }
+    return (
+        <div className={styles.container}>
+            <section>
+                <img src="logo.svg" alt="Logo"/>
+                <h1>Bem-vindo</h1>
+                <div>
+                    <p>Faça login com seu Github <br/> para começar</p>
+                </div>
+                <div>
+                    <button onClick={(): Promise<void> => signIn('github')}>
+                        <img src="github.svg" alt="Logo"/>
+                        Sign In
+                        <FiArrowRight size={30}/>
+                    </button>
+                </div>
+            </section>
+        </div>
+    );
 }

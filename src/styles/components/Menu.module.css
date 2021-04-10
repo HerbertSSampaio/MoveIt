@@ -24,6 +24,11 @@
     padding: 15px 35px;
 }
 
+.menu button {
+    border: none;
+    background-color: transparent;
+}
+
 .ativo {
     color: #5965E0;
     border-left: #5965E0 5px solid;
