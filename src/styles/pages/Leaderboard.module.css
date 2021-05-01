@@ -1,0 +1,84 @@
+.container {
+    height: 100vh;
+    max-width: 992px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.tableRank {
+    margin-top: 50px;
+    border-spacing: 0 0.5rem;
+}
+
+.tableRank thead tr{
+    padding-bottom: 20px;
+}
+
+.tableRank thead th{
+    text-align: left;
+    padding-bottom: 20px;
+    padding-left: 30px;
+}
+.tableRank thead th:first-child{
+    padding-left: 0;
+}
+
+.tableRank tbody tr {
+    background-color: white;
+}
+
+.tableRank tbody td {
+    padding: 10px 30px;
+    border: none;
+    font-weight: 500;
+}
+
+.tableRank span {
+    font-size: 1rem;
+    font-weight: 600;
+    
+    color: var(--blue);
+}
+
+
+.tableRank tbody tr td:first-child{
+    border-right: 5px solid var(--background);
+    width: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.Profile {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+.Profile > img {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+}
+
+.Profile div {
+    margin-left: 1.5rem;
+}
+
+.Profile div strong {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--title);
+}
+
+.Profile div a {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.Profile div p img {
+    margin-right: 0.5rem;
+}

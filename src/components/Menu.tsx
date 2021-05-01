@@ -14,8 +14,8 @@ export function Menu() {
         <div className={styles.menu}>
             <img src="logomenu.svg" alt="logo"/>
             <nav>
-                <a href="#" className={styles.ativo}><FiHome size={35} /></a>
-                <a href="#"><FiAward size={35} /></a>
+                <a href="/dashboard" className={styles.ativo}><FiHome size={35} /></a>
+                <a href="/leaderboard"><FiAward size={35} /></a>
             </nav>
             <button onClick={() => logout()}><FiLogOut size={35} /></button>
         </div>

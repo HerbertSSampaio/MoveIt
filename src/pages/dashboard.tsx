@@ -8,7 +8,6 @@ import { Menu } from '../components/Menu';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import Head from 'next/head';
 import { GetServerSideProps} from 'next';
-import Router from 'next/router'
 
 import styles from '../styles/pages/Dashboard.module.css';
 import { useSession } from 'next-auth/client';
