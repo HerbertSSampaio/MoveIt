@@ -19,7 +19,7 @@ interface HomeProps {
 }
 
 export default function Home(props:HomeProps) {
-  const [ session, loading ] = useSession()
+  const [ session, loading ] = useSession();
 
   if(session) {
     return (
