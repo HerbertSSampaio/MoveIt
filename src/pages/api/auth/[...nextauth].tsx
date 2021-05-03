@@ -13,7 +13,6 @@ export default (req, res) => NextAuth(req, res, {
     ],
     callbacks: {
         async signIn(user, account, profile) {
-            console.log(user);
             const { name, email, image } = user
 
             try {
@@ -29,7 +28,7 @@ export default (req, res) => NextAuth(req, res, {
                   ),
                   q.Create(
                     q.Collection('users'),
-                      { data: {name, email, image } }
+                      { data: {name, email, image, level: 0, currentExperience: 0, challengesCompleted: 0 } }
                     ),
                     q.Get(
                       q.Match(

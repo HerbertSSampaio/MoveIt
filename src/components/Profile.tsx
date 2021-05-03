@@ -11,7 +11,7 @@ export function Profile() {
         <div className={styles.profileContainer}>
             <img src={session.user.image} alt="Herbert"/>
             <div>
-                <strong>{session.user}</strong>
+                <strong>{session.user.name}</strong>
                 <p>
                     <img src="icons/level.svg" alt=""/>
                     Level {level}
