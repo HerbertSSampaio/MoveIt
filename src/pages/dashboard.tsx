@@ -7,26 +7,21 @@ import { ChallengeBox } from '../components/ChallengeBox';
 import { Menu } from '../components/Menu';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import Head from 'next/head';
-import { GetServerSideProps} from 'next';
 
 import styles from '../styles/pages/Dashboard.module.css';
 import { useSession } from 'next-auth/client';
 
-interface HomeProps {
-  level: number,
-  currentExperience: number,
-  challengesCompleted: number,
-}
 
-export default function Home(props:HomeProps) {
+export default function Home() {
   const [ session, loading ] = useSession();
 
+  console.log(session);
   if(session) {
     return (
       <ChallengesProvider
-      level={props.level}
-      currentExperience = {props.currentExperience}
-      challengesCompleted = {props.challengesCompleted}
+      level={Number(session.user.level)}
+      currentExperience = {Number(session.user.currentExperience)}
+      challengesCompleted = {Number(session.user.challengesCompleted)}
       >
         <Menu />
       <div className={styles.container}>
@@ -51,17 +46,4 @@ export default function Home(props:HomeProps) {
     )
   }
     return 'acesso negado';
-}
-
-export const getServerSideProps:GetServerSideProps = async (ctx) => {
-
-  const { level, currentExperience, challengesCompleted} = ctx.req.cookies;
-  
-  return {
-    props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted),
-    }
-  }
 }

@@ -4,6 +4,21 @@ import Providers from "next-auth/providers";
 
 import { fauna } from '../../../services/fauna';
 
+type User = {
+  ref: {
+      id: string;
+  }
+  data: {
+      name: string,
+      email: string,
+      image: string,
+      level: Number,
+      currentExperience: Number, 
+      challengesCompleted: Number,
+
+  }
+}
+
 export default (req, res) => NextAuth(req, res, {
     providers: [
         Providers.GitHub({
@@ -12,7 +27,28 @@ export default (req, res) => NextAuth(req, res, {
         })
     ],
     callbacks: {
-        async signIn(user, account, profile) {
+        async session(session) {
+          try {
+            const user = await fauna.query<User>(
+              q.Get(
+                q.Match(
+                  q.Index('user_by_email'),
+                  q.Casefold(session.user.email)
+                )
+              )
+            )
+
+            return {
+              ...session,
+              user: user.data,
+            }
+          } catch {
+            return {
+              ...session,
+            }
+          }
+        },
+        async signIn(user) {
             const { name, email, image } = user
 
             try {
@@ -28,7 +64,7 @@ export default (req, res) => NextAuth(req, res, {
                   ),
                   q.Create(
                     q.Collection('users'),
-                      { data: {name, email, image, level: 0, currentExperience: 0, challengesCompleted: 0 } }
+                      { data: {name, email, image, level: 1, currentExperience: 0, challengesCompleted: 0 } }
                     ),
                     q.Get(
                       q.Match(

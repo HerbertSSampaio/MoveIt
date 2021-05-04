@@ -3,6 +3,7 @@ import challenges from '../../challenges.json';
 import Cookies from 'js-cookie';
 import { LevelUpModal } from '../components/LevelUpModal';
 import { api } from '../services/api';
+import { useSession } from 'next-auth/client';
 
 interface Challenge {
     type: 'body' | 'eye';
@@ -36,6 +37,8 @@ export function ChallengesProvider({
     children,
     ...rest
  }: ChallengesProviderProps){
+    const [ session, loading ] = useSession();
+
     const [level, setLevel] = useState(rest.level ?? 1);
     const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
     const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
@@ -56,9 +59,6 @@ export function ChallengesProvider({
                 currentExperience,
                 challengesCompleted
               }})
-            Cookies.set('level', String(level));
-            Cookies.set('currentExperience', String(currentExperience));
-            Cookies.set('challengesCompleted', String(challengesCompleted));
         }
         saveChallenges();
     }, [level, currentExperience, challengesCompleted])
