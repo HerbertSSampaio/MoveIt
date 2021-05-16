@@ -15,7 +15,6 @@ type User = {
       level: Number,
       currentExperience: Number, 
       challengesCompleted: Number,
-
   }
 }
 

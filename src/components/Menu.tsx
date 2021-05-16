@@ -2,6 +2,7 @@ import styles from '../styles/components/Menu.module.css'
 import { FiHome, FiAward, FiLogOut } from "react-icons/fi";
 import { session, signout } from 'next-auth/client';
 import Router from 'next/router'
+import { ActiveLink } from './ActiveLink';
 import { useCallback } from 'react';
 
 export function Menu() {
@@ -14,8 +15,12 @@ export function Menu() {
         <div className={styles.menu}>
             <img src="logomenu.svg" alt="logo"/>
             <nav>
-                <a href="/dashboard" className={styles.ativo}><FiHome size={35} /></a>
-                <a href="/leaderboard"><FiAward size={35} /></a>
+                <ActiveLink activeClassName={styles.ativo} href="/dashboard">
+                    <a><FiHome size={35} /></a>
+                </ActiveLink>
+                <ActiveLink activeClassName={styles.ativo} href="/leaderboard" prefetch>
+                    <a><FiAward size={35} /></a>
+                </ActiveLink>
             </nav>
             <button onClick={() => logout()}><FiLogOut size={35} /></button>
         </div>
