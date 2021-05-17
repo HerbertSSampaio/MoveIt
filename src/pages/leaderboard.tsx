@@ -1,11 +1,21 @@
 import { Menu } from '../components/Menu';
 import { useSession } from 'next-auth/client';
 import styles from '../styles/pages/Leaderboard.module.css';
+import { GetStaticProps } from 'next';
+import { fauna } from "../services/fauna";
+import { Collection, Documents, query as q } from 'faunadb';
+
+interface User{
+  name: string;
+  email: string;
+  image: string;
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
+}
 
 interface LeaderboardProps {
-  level: number,
-  currentExperience: number,
-  challengesCompleted: number,
+  Users: User[];
 }
 
 export default function Leaderboard(props:LeaderboardProps) {
@@ -65,4 +75,21 @@ export default function Leaderboard(props:LeaderboardProps) {
     )
   }
     return 'acesso negado';
+}
+
+
+export const getStaticProps: GetStaticProps = async () => {
+  const users = await fauna.query(
+                    q.Map(
+                      q.Paginate(Documents(Collection('users'))),
+                      q.Lambda(x => q.Get(x))
+                    )
+                );
+  console.log(users);
+
+  return {
+    props: {
+    },
+    revalidate: 60 * 60 * 2, // 24 hours
+  };
 }
