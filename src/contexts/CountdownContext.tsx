@@ -38,7 +38,7 @@ export function CountdownProvider({ children }:CountdownProviderProps) {
         clearTimeout(countdownTimeout);
         setIsActive(false);
         setHasFinished(false);
-        setTime(1 * 10);
+        setTime(25 * 60);
     }
 
     useEffect(() => {
