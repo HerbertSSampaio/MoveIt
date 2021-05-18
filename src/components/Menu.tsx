@@ -15,7 +15,7 @@ export function Menu() {
         <div className={styles.menu}>
             <img src="logomenu.svg" alt="logo"/>
             <nav>
-                <ActiveLink activeClassName={styles.ativo} href="/dashboard">
+                <ActiveLink activeClassName={styles.ativo} href="/dashboard" prefetch>
                     <a><FiHome size={35} /></a>
                 </ActiveLink>
                 <ActiveLink activeClassName={styles.ativo} href="/leaderboard" prefetch>

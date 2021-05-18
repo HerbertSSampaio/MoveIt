@@ -14,11 +14,21 @@ interface User{
   challengesCompleted: number;
 }
 
-interface LeaderboardProps {
-  Users: User[];
+type UserFauna = {
+  ref: string;
+  ts: number;
+  data: User;
 }
 
-export default function Leaderboard(props:LeaderboardProps) {
+type UserProps = {
+  data: UserFauna[];
+}
+
+interface LeaderboardProps {
+  rankUsers: User[];
+}
+
+export default function Leaderboard({ rankUsers }:LeaderboardProps) {
   const [ session, loading ] = useSession()
 
   if(session) {
@@ -38,36 +48,23 @@ export default function Leaderboard(props:LeaderboardProps) {
                 </thead>
 
                 <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td className={styles.Profile}>
-                              <img src="https://github.com/HerbertSousa.png" alt="Foto"/>
-                              <div>
-                                  <strong>Herbert De Sousa</strong>
-                                  <p>
-                                      <img src="icons/level.svg" alt=""/>
-                                      Level 2
-                                  </p>
-                              </div>   
-                            </td>
-                            <td><span>127</span> completados</td>
-                            <td> <span>154000</span> xp</td>
+                      { rankUsers.map((post, indice) => (
+                        <tr key={post.email}>
+                          <td>{indice + 1}</td>
+                          <td className={styles.Profile}>
+                            <img src={post.image} alt="Foto"/>
+                            <div>
+                                <strong>{post.name}</strong>
+                                <p>
+                                    <img src="icons/level.svg" alt=""/>
+                                    Level {post.level}
+                                </p>
+                            </div>   
+                          </td>
+                          <td><span>{post.challengesCompleted}</span> completados</td>
+                          <td><span>{post.currentExperience}</span> xp</td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td className={styles.Profile}>
-                              <img src="https://github.com/HerbertSousa.png" alt="Foto"/>
-                              <div>
-                                  <strong>Herbert De Sousa</strong>
-                                  <p>
-                                      <img src="icons/level.svg" alt=""/>
-                                      Level 2
-                                  </p>
-                              </div>   
-                            </td>
-                            <td><span>127</span> completados</td>
-                            <td> <span>154000</span> xp</td>
-                        </tr>
+                      ))}
                 </tbody>
             </table>
         </div>
@@ -79,17 +76,32 @@ export default function Leaderboard(props:LeaderboardProps) {
 
 
 export const getStaticProps: GetStaticProps = async () => {
-  const users = await fauna.query(
-                    q.Map(
-                      q.Paginate(Documents(Collection('users'))),
-                      q.Lambda(x => q.Get(x))
-                    )
-                );
-  console.log(users);
+  const faunaUsers = await fauna.query<UserProps>(
+    q.Map(
+        q.Paginate(Documents(Collection('users'))),
+        q.Lambda(x => q.Get(x))
+    )
+  );
+
+  const users = faunaUsers.data.map(user => {
+    return user.data;
+  });
+
+  const rankUsers = users.sort((firstUser, secondUser) => {
+    if( firstUser.level < secondUser.level ) {
+      return 1;
+    }
+    else if( firstUser.level === secondUser.level ) {
+      if ( firstUser.currentExperience < secondUser.currentExperience ) {
+        return 1;
+      }
+      return -1;
+    }
+    return -1;
+  });
 
   return {
-    props: {
-    },
+    props: {rankUsers},
     revalidate: 60 * 60 * 2, // 24 hours
   };
 }
