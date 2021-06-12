@@ -16,7 +16,7 @@
 </p>
 
 ## 👨🏻‍💻 About the project
-
+[Project running](https://moveit-nine-indol.vercel.app/)
 - <p style="color: red;">Spending a lot of time working in front of the computer without exercising increases the chances of heart disease, diabetes and cancer. Move.it has a list of exercises to do and every 25 minutes of work in front of the computer you are presented with a challenge with one of these exercises.</p>
 
 ## 🚀 Technologies
