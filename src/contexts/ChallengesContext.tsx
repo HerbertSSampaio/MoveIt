@@ -54,7 +54,7 @@ export function ChallengesProvider({
 
     useEffect(() => {
         async function saveChallenges() {
-            await api.post('/updateChallengesInfo', null, { params: {
+            await api.post('updateChallengesInfo', null, { params: {
                 level,
                 currentExperience,
                 challengesCompleted
